@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {connect} from "react-redux";
 import Header from "../Header";
+import Footer from "../Footer";
 
 const Dashboard = ({name}) => {
 
@@ -14,6 +15,7 @@ const Dashboard = ({name}) => {
         <div>
           <Header />
             Hi, {user.name}
+          <Footer />
         </div>
     )
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const Homepage = () => {
 
@@ -11,6 +12,7 @@ const Homepage = () => {
             <h4>An app to facilitate your client's management</h4>
             <Link to="/login">Login</Link>
             <Link to="/register">Register</Link>
+            <Footer />
         </div>
     )
 }
