@@ -1,5 +1,5 @@
 import {createStore} from "redux";
-import AuthReducer from "./Reducer";
+import AllReducers from "./AuthReducer";
 
 const initialState = {
     auth: {
@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const store = createStore(
-    AuthReducer,
+    AllReducers,
     initialState
 );
 
