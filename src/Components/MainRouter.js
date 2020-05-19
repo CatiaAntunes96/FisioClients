@@ -5,6 +5,8 @@ import Login from "./Login";
 import Homepage from "./Homepage";
 import Register from "./Register";
 import Dashboard from "./User/Dashboard";
+import Profile from "./User/Profile";
+import Shedule from "./User/Shedule";
 
 const MainRouter = () => (
     <Switch>
@@ -12,6 +14,8 @@ const MainRouter = () => (
         <Route path="/login" component={Login} />
         <Route path='/register' component={Register} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute path="/profile" component={Profile} />
+        <PrivateRoute path="/shedule" component={Shedule} />
     </Switch>
 )
 

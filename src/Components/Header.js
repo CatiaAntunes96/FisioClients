@@ -3,10 +3,11 @@ import {Link, useHistory} from 'react-router-dom';
 import cookie from "js-cookie";
 import { connect } from "react-redux";
 
+import "../Style/Header.css"
+import {IoMdArrowDropdown} from "react-icons/io"
+
 const Header = ({loggedIn, logout, name}) => {
     let history = useHistory();
-
-    //let token = cookie.get("token");
 
     function handleLogOut (e) {
         e.preventDefault();    
@@ -19,27 +20,39 @@ const Header = ({loggedIn, logout, name}) => {
     };
 
     return (
-        <div>
+        <div >
             {loggedIn ? 
-            <div >
-                <p>{name}</p>
+            <div>    
+            <div className="sidenav"> 
+                    <p className="logo-nav">FisioClient</p>
+                    <Link to="./shedule" className="links">Shedules</Link>
+                    <Link to="./notes" className="links">Notes</Link>
+            </div>
             <nav >
-            
-            <ul>
-                <button onClick={handleLogOut}>
-                    LogOut
-                </button>
+            <ul className="header-homepage">
+                <p style={{marginRight: 15}}>{name}</p>
+                <div className="dropdown">
+                    <button className="dropbtn">
+                        <IoMdArrowDropdown size={25}/>
+                    </button>
+                    <div className="dropdown-content">
+                        <button onClick={handleLogOut} className="links-dropdown">
+                            LogOut
+                        </button>
+                        <Link to="/profile" className="links-dropdown">Profile</Link>
+                    </div>
+                </div>
             </ul>
             </nav>
             </div>
             : 
-            <nav>
-                <ul>
-                    <li>
+            <nav >
+                <ul className="header-homepage">
+                    <li style={{marginRight: 15}}>
                         <Link to="/login">Login</Link> 
                     </li>
                     <li>
-                        <Link to="/Register">Register</Link> 
+                        <Link to="/register">Register</Link> 
                     </li>
                 </ul>
             </nav> 
