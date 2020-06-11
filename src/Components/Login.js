@@ -4,8 +4,6 @@ import cookie from "js-cookie";
 import axios from "axios";
 import {connect} from "react-redux";
 
-import moment from "moment";
-import Moment from "moment-business-days";
 
 const Login = ({setLogin}) => {
     let history = useHistory();
@@ -40,8 +38,6 @@ const Login = ({setLogin}) => {
                 cookie.set("token", response.data.jwt);
 
                 setLogin(response.data.user)
-
-                console.log(response.data)
 
                 history.push('/dashboard');
             })

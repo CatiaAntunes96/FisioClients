@@ -6,7 +6,7 @@ import Homepage from "./Homepage";
 import Register from "./Register";
 import Dashboard from "./User/Dashboard";
 import Profile from "./User/Profile";
-import Shedule from "./User/Shedule";
+import Shedule from "./User/Shedule/Shedule";
 
 const MainRouter = () => (
     <Switch>
