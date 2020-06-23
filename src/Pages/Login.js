@@ -35,7 +35,7 @@ const Login = ({setLogin}) => {
             .then(response => {
                 
 
-                cookie.set("token", response.data.jwt);
+                cookie.set("token", response.data.jwt, { expires: 0.05 });
 
                 setLogin(response.data.user)
 

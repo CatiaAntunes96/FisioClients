@@ -1,12 +1,13 @@
 import React from "react";
 import {Switch, Route} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import Login from "./Login";
-import Homepage from "./Homepage";
-import Register from "./Register";
-import Dashboard from "./User/Dashboard";
-import Profile from "./User/Profile";
-import Shedule from "./User/Shedule/Shedule";
+import Login from "../Pages/Login";
+import Homepage from "../Pages/Homepage";
+import Register from "../Pages/Register";
+import Dashboard from "../Pages/User/Dashboard";
+import Profile from "../Pages/User/Profile";
+import Shedule from "../Pages/User/ShedulePages/Shedule";
+import Patient from "../Pages/User/ShedulePages/Patient";
 
 const MainRouter = () => (
     <Switch>
@@ -16,6 +17,7 @@ const MainRouter = () => (
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/shedule" component={Shedule} />
+        <PrivateRoute path="/patient/:id" component={Patient} />
     </Switch>
 )
 

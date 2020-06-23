@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
-import Header from "../Header";
-import Footer from "../Footer";
+import Header from "../../Components/Header";
+import Footer from "../../Components/Footer";
 import "../../Style/User/Dashboard.css"
 
 const Dashboard = ({name}) => {
