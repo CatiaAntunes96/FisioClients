@@ -24,9 +24,9 @@ const Header = ({loggedIn, logout, name}) => {
             {loggedIn ? 
             <div>    
             <div className="sidenav"> 
-                    <Link to="./dashboard" className="logo-nav">FisioClient</Link>
-                    <Link to="./shedule" className="links">Shedules</Link>
-                    <Link to="./notes" className="links">Notes</Link>
+                    <Link to="/dashboard" className="logo-nav">FisioClient</Link>
+                    <Link to="/shedule" className="links">Shedules</Link>
+                    <Link to="/notes" className="links">Notes</Link>
             </div>
             <nav >
             <ul className="header-homepage">

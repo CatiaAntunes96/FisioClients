@@ -6,9 +6,9 @@ import "../../../Style/User/Shedule/Shedule.css"
 
 import moment from "moment";
 
-
 import WeekNav from "../../../Components/User/Shedule/WeekNav";
 import SheduleByDay from "../../../Components/User/Shedule/SheduleByDay";
+
 
 const Shedule = () => {
 
@@ -49,8 +49,6 @@ const Shedule = () => {
         setPatientsList(list)
     }
 
-    console.log(patientsList)
-
     return(
         <div>
             <Header />
@@ -58,7 +56,8 @@ const Shedule = () => {
             
             <div className="nav-dates">
             {weekDates.map((day, i) => (
-                <WeekNav key={i} day={day} monday={day} getDaySelected={setDay} getPatients={getPatientList} />
+                <WeekNav key={i} day={day} getDaySelected={setDay} getPatients={getPatientList} /> 
+                // getPatients={getPatientList}
             ))}
             </div>
             {patientsList.map((patient, i) => (
@@ -69,4 +68,4 @@ const Shedule = () => {
     )
 }
 
-export default Shedule;
+  export default Shedule;

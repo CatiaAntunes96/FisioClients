@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route } from "react-router-dom";
-import MainRouter from "./Components/MainRouter";
+import MainRouter from "./Routing/MainRouter";
 import "./Style/App.css"
 
 

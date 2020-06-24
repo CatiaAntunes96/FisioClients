@@ -2,12 +2,12 @@ import React, {useState, useEffect} from "react";
 import Header from "../../../Components/Header";
 import Footer from "../../../Components/Footer";
 import MissedSessionBtn from "../../../Components/User/Shedule/MissedSessionBtn";
+import EditDeceases from "../../../Components/User/Shedule/Edit-deceases";
 
 import axios from "axios";
 import {useParams} from "react-router-dom";
 import cookie from "js-cookie";
 import moment from "moment";
-import MissedSession from "../../../Components/User/Shedule/MissedSessionBtn";
 
 const Patient = () => {
     let { id } = useParams();
@@ -46,8 +46,6 @@ const Patient = () => {
        setMissedSession(color);
    }
 
-    
-
     return(
         <div>
             <Header />
@@ -56,7 +54,7 @@ const Patient = () => {
                 <p>Start Date: {moment(patient["Start_Date"]).format("DD-MM-YYYY")}</p>
                 <p>End date: {moment(patient["End_Date"]).format("DD-MM-YYYY")}</p>
                 <p>Diagnosis: {patient.Diagnosis}</p>
-                <p>Previous Deceases: {patient["Previous_diseases"]}</p>
+                <EditDeceases deceases={patient["Previous_diseases"]} id={id} />
                 <p>Exams: {patient.Exams}</p>
                 <p>Tratamento:</p>
                 {treatments.map((treatment, i) => (
