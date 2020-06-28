@@ -20,29 +20,55 @@ const Header = ({loggedIn, logout, name}) => {
     };
 
     return (
-        <div >
+        <div>
             {loggedIn ? 
+            name === "Manager" ?
+            <div>
+                <div className="sidenav"> 
+                    <Link to="/dashboard" className="logo-nav">FisioClient</Link>
+                    <Link to="/register" className="links">Register Client</Link>
+                    {/* <Link to="/shedule" className="links">Shedules</Link> */}
+                    <Link to="/notes" className="links">Notes</Link>
+                </div>
+                <nav>
+                    <ul className="header-homepage">
+                        <p style={{marginRight: 15}}>{name}</p>
+                        <div className="dropdown">
+                            <button className="dropbtn">
+                                <IoMdArrowDropdown size={25}/>
+                            </button>
+                            <div className="dropdown-content">
+                                <button onClick={handleLogOut} className="links-dropdown">
+                                LogOut
+                                </button>
+                                <Link to="/profile" className="links-dropdown">Profile</Link>
+                            </div>
+                        </div>
+                    </ul>
+                </nav>
+            </div>
+            :
             <div>    
             <div className="sidenav"> 
                     <Link to="/dashboard" className="logo-nav">FisioClient</Link>
                     <Link to="/shedule" className="links">Shedules</Link>
                     <Link to="/notes" className="links">Notes</Link>
             </div>
-            <nav >
-            <ul className="header-homepage">
-                <p style={{marginRight: 15}}>{name}</p>
-                <div className="dropdown">
-                    <button className="dropbtn">
-                        <IoMdArrowDropdown size={25}/>
-                    </button>
-                    <div className="dropdown-content">
-                        <button onClick={handleLogOut} className="links-dropdown">
-                            LogOut
+                <nav >
+                <ul className="header-homepage">
+                    <p style={{marginRight: 15}}>{name}</p>
+                    <div className="dropdown">
+                        <button className="dropbtn">
+                            <IoMdArrowDropdown size={25}/>
                         </button>
-                        <Link to="/profile" className="links-dropdown">Profile</Link>
+                        <div className="dropdown-content">
+                            <button onClick={handleLogOut} className="links-dropdown">
+                                LogOut
+                            </button>
+                            <Link to="/profile" className="links-dropdown">Profile</Link>
+                        </div>
                     </div>
-                </div>
-            </ul>
+                </ul>
             </nav>
             </div>
             : 

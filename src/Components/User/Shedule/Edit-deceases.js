@@ -4,7 +4,12 @@ import {connect} from "react-redux";
 import cookie from "js-cookie";
 
 const EditDeceases = ({deceases, update, id}) => {
+    
     const [editMode, setEditMode] = useState(false);
+    const [deceasesList, setDeceasesList] = useState(deceases);
+
+    console.log(deceasesList)
+    console.log(deceases)
 
     let token = cookie.get("token");
 
@@ -31,11 +36,14 @@ const EditDeceases = ({deceases, update, id}) => {
         setEditMode(false);
 
         update(response.data);
+
+        setDeceasesList(response.data["Previous_diseases"])
     }
 
     function activateInput () {
         setEditMode(true)
     }
+
 
     //JSX components
     const editDeceasesList = 
@@ -48,13 +56,16 @@ const EditDeceases = ({deceases, update, id}) => {
     const saveBtn = <button onClick={editInformation}>Save</button>
 
     const activateInputCamp = editMode ? <div>{editDeceasesList}{saveBtn}</div> :
-    <div>{deceases}{editBtn}</div>;
+    <div>{deceasesList}{editBtn}</div>;
+
+    
 
     return(
         <div>Previous Deceases: {activateInputCamp}</div>
     
     )
 }
+
 
 function mapDispatchToProps (dispatch) {
     return {
