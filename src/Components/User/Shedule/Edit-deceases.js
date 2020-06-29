@@ -41,6 +41,7 @@ const EditDeceases = ({handleDeceaseChange, deceases, update, id}) => {
         setEditMode(true)
     }
 
+
     //JSX components
     const editDeceasesList = 
     <div>
@@ -54,11 +55,14 @@ const EditDeceases = ({handleDeceaseChange, deceases, update, id}) => {
     const activateInputCamp = editMode ? <div>{editDeceasesList}{saveBtn}</div> :
     <div>{deceases}{editBtn}</div>;
 
+    
+
     return(
         <div>Previous Deceases: {activateInputCamp}</div>
     
     )
 }
+
 
 function mapDispatchToProps (dispatch) {
     return {

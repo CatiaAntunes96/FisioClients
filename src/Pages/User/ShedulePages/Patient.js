@@ -64,6 +64,7 @@ const Patient = () => {
                 <p>Diagnosis: {patient.Diagnosis}</p>
                 <EditDeceases deceases={deceaseListUpdate} handleDeceaseChange={updateDeceaseList} id={id} />
                 <p>Exams: {patient.Exams}</p>
+                <p>Images: {patient["Exams_images"]}</p>
                 <p>Tratamento:</p>
                 {treatments.map((treatment, i) => (
                     <li key={i}>{treatment.Treatment}</li>
