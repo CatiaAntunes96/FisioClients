@@ -57,7 +57,6 @@ const Shedule = () => {
             <div className="nav-dates">
             {weekDates.map((day, i) => (
                 <WeekNav key={i} day={day} getDaySelected={setDay} getPatients={getPatientList} /> 
-                // getPatients={getPatientList}
             ))}
             </div>
             {patientsList.map((patient, i) => (

@@ -3,7 +3,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import cookie from "js-cookie";
 
-const EditDeceases = ({deceases, update, id}) => {
+const EditDeceases = ({handleDeceaseChange, deceases, update, id}) => {
     const [editMode, setEditMode] = useState(false);
 
     let token = cookie.get("token");
@@ -11,7 +11,11 @@ const EditDeceases = ({deceases, update, id}) => {
     const editDeceases = useRef(deceases);
 
     function deceasesListUpdate() {
+        
         let deceases = editDeceases.current.value;
+
+        handleDeceaseChange(deceases)
+        
         return deceases;
     }
 

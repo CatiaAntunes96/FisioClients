@@ -18,6 +18,8 @@ const Patient = () => {
     const [treatments, setTreatments] = useState([]);
     const [isDone, setIsDone] = useState(false);
     const [missedSession, setMissedSession] = useState(false);
+
+    const [deceaseListUpdate, setDeceaseListUpdate] = useState([]);
     
     function getPatient () {
         const config = {
@@ -31,6 +33,8 @@ const Patient = () => {
                 setPatient(response.data);
 
                 setTreatments(response.data.treatments);
+
+                setDeceaseListUpdate(response.data["Previous_diseases"]);
             })
     }
 
@@ -46,6 +50,10 @@ const Patient = () => {
        setMissedSession(color);
    }
 
+   function updateDeceaseList (list) {
+        setDeceaseListUpdate(list)
+   }
+
     return(
         <div>
             <Header />
@@ -54,7 +62,7 @@ const Patient = () => {
                 <p>Start Date: {moment(patient["Start_Date"]).format("DD-MM-YYYY")}</p>
                 <p>End date: {moment(patient["End_Date"]).format("DD-MM-YYYY")}</p>
                 <p>Diagnosis: {patient.Diagnosis}</p>
-                <EditDeceases deceases={patient["Previous_diseases"]} id={id} />
+                <EditDeceases deceases={deceaseListUpdate} handleDeceaseChange={updateDeceaseList} id={id} />
                 <p>Exams: {patient.Exams}</p>
                 <p>Tratamento:</p>
                 {treatments.map((treatment, i) => (
