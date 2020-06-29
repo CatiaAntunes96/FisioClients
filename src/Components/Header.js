@@ -26,8 +26,7 @@ const Header = ({loggedIn, logout, name}) => {
             <div>
                 <div className="sidenav"> 
                     <Link to="/dashboard" className="logo-nav">FisioClient</Link>
-                    <Link to="/register" className="links">Register Client</Link>
-                    {/* <Link to="/shedule" className="links">Shedules</Link> */}
+                    <Link to="/registerClient" className="links">Register Client</Link>
                     <Link to="/notes" className="links">Notes</Link>
                 </div>
                 <nav>
