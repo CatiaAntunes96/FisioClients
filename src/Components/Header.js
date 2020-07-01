@@ -27,6 +27,7 @@ const Header = ({loggedIn, logout, name}) => {
                 <div className="sidenav"> 
                     <Link to="/dashboard" className="logo-nav">FisioClient</Link>
                     <Link to="/registerClient" className="links">Register Client</Link>
+                    <Link to="/clientsList" className="links">clients List</Link>
                     <Link to="/notes" className="links">Notes</Link>
                 </div>
                 <nav>

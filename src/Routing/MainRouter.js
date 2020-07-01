@@ -8,7 +8,8 @@ import Dashboard from "../Pages/User/Dashboard";
 import Profile from "../Pages/User/Profile";
 import Shedule from "../Pages/User/ShedulePages/Shedule";
 import Patient from "../Pages/User/ShedulePages/Patient";
-import RegisterClient from "../Pages/User/RegisterClient/RegisterClient";
+import RegisterClient from "../Pages/User/Manager/RegisterClient/RegisterClient";
+import ClientsList from "../Pages/User/Manager/Clients/Clients-List";
 
 import PrivateRoute from "./PrivateRoute"
 
@@ -19,6 +20,7 @@ const MainRouter = () => (
         <Route path='/register' component={Register} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/registerClient" component={RegisterClient} />
+        <PrivateRoute path="/clientsList" component={ClientsList} />
         <PrivateRoute path="/profile" component={Profile} />
         <PrivateRoute path="/shedule" component={Shedule} />
         <PrivateRoute path="/patient/:id" component={Patient} />
