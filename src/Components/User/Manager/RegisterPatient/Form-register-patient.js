@@ -107,6 +107,7 @@ const FormRegisterPatient = () => {
         type="image"
         name="Exam_images"
         value={newPatient['Exam_images']}
+        alt={newPatient['Exam_images']}
         onChange={handleChange}
       />
       <div>
