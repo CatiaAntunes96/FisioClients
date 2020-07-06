@@ -8,9 +8,9 @@ import cookie from "js-cookie"
 export const url = 'http://localhost:1337';
 export const fetcher = url => axios.get(url).then(res => res.data);
 
-let token = cookie.get("token");
+//let token = cookie.get("token");
 
-export const fetchWithToken = url => axios.get(url, {
+export const fetchWithToken = (url, token) => axios.get(url, {
   headers: { Authorization: `Bearer ${token}`}
 }).then(res => res.data);
 

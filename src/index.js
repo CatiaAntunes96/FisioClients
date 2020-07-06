@@ -12,21 +12,19 @@ import { SWRConfig } from "swr";
 
 axios.defaults.baseURL = 'http://localhost:1337';
 
+let token = cookie.get("token");
+
 const render = () => {
   ReactDOM.render(
   <Provider store={store}>
-    <SWRConfig
-    value={{ fetcher: (url) => axios(url).then(res => res.data) }}
-    >
+    
       <App />
-    </SWRConfig>
+   
   </Provider>,
   document.getElementById('root')
 )};
 
 
-  let token = cookie.get("token");
-  console.log(token)
   
   if (token) {
       const config = {
