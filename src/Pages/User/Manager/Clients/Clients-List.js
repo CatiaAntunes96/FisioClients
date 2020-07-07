@@ -1,31 +1,32 @@
-import React from "react";
-import axios from "axios"; 
-import useSWR from "swr";
-import {url} from "../../../../App";
-import {fetchWithToken} from "../../../../App";
-import cookie from "js-cookie";
+import React from 'react';
+import axios from 'axios';
+import useSWR from 'swr';
+import { url } from '../../../../App';
+import { fetchWithToken } from '../../../../App';
+import cookie from 'js-cookie';
+
+import Header from '../../../../Components/Header';
+import Footer from '../../../../Components/Footer';
 
 const ClientsList = () => {
-    let token = cookie.get("token");
-  
+  let token = cookie.get('token');
 
-    const {data, error} = useSWR([url + '/clients', token], fetchWithToken);
+  const { data, error } = useSWR([url + '/clients', token], fetchWithToken);
 
-    console.log(data)
+  console.log(data);
 
-    if (error) return <div>failed to load</div>
-    if (!data) return <div>loading...</div>
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
-      
-
-    return(
-        <div>
-            {data.map(client => (
-                <li key={client.id}>{client.Name}</li>
-            ))}
-       
-        </div>
-    )
-}
+  return (
+    <div>
+      <Header />
+      {data.map((client) => (
+        <li key={client.id}>{client.Name}</li>
+      ))}
+      <Footer />
+    </div>
+  );
+};
 
 export default ClientsList;

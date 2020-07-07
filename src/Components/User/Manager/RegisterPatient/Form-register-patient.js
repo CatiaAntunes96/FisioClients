@@ -5,6 +5,9 @@ import moment from 'moment';
 import momentWeekDays from 'moment-business-days';
 import { url } from '../../../../App';
 
+import { fetchWithToken } from '../../../../App';
+import useSWR from 'swr';
+
 const FormRegisterPatient = () => {
   const [newPatient, setNewPatient] = useState({
     Name: '',
@@ -21,6 +24,13 @@ const FormRegisterPatient = () => {
 
   const [treatments, setTreatments] = useState([]);
 
+  let token = cookie.get('token');
+
+  const { data, error } = useSWR([url + '/treatments', token], fetchWithToken);
+
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+
   function handleChange(e) {
     const value = e.target.value;
 
@@ -36,18 +46,20 @@ const FormRegisterPatient = () => {
         newPatient['Start_Date'],
         'YYYY-MM-DD'
       ).businessAdd(14)._d;
+
       let endDate = moment(date).format('YYYY-MM-DD');
+
       setNewPatient({ ...newPatient, End_Date: endDate });
+
       console.log(moment(date).format('YYYY-MM-DD'));
     }
   }
 
   async function submitNewPatient() {
-    let token = cookie.get('token');
-
     let createPatient = {
       ...newPatient,
       Hour_session: newPatient['Hour_session'] + ':00.000',
+      treatments: treatments,
     };
 
     const config = {
@@ -129,16 +141,27 @@ const FormRegisterPatient = () => {
         value={newPatient['Hour_session']}
         onChange={handleChange}
       />
-      <label>Treatments:</label>
-      <input
-        type="text"
+      <label>Choose treatments:</label>
+      <select
         name="treatments"
-        value={treatments}
-        onChange={(e) => {
-          let value = e.target.value;
-          setTreatments(value);
+        id="treatments"
+        multiple="multiple"
+        onMouseLeave={() => {
+          const selected = [...document.querySelector('select').options]
+            .filter((option) => option.selected)
+            .map((option) => option.value);
+
+          setTreatments(selected);
+
+          console.log(selected);
         }}
-      />
+      >
+        {data.map((treatment) => (
+          <option key={treatment.id} value={treatment.Treatment}>
+            {treatment.Treatment}
+          </option>
+        ))}
+      </select>
       <button type="button" onClick={submitNewPatient}>
         Submit
       </button>
