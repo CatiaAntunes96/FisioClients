@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import useSWR from 'swr';
 import { url } from '../../../../App';
 import { fetchWithToken } from '../../../../App';

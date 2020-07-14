@@ -13,12 +13,12 @@ const FormRegisterPatient = () => {
     Age: '',
     Date_Birth: '',
     Previous_diseases: '',
-    Exams: [],
-    Exam_images: [],
+    Exams: '',
     Diagnosis: '',
     Start_Date: '',
     End_Date: '',
     Hour_session: '',
+    user: '',
   });
 
   const [treatments, setTreatments] = useState([]);
@@ -53,21 +53,58 @@ const FormRegisterPatient = () => {
     }
   }
 
-  async function submitNewPatient() {
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  function fileChangedHandler(e) {
+    setSelectedFile(e.target.files[0]);
+    console.log(e.target.files[0]);
+  }
+
+  async function submitNewPatient(e) {
+    e.preventDefault();
+
     let createPatient = {
       ...newPatient,
       Hour_session: newPatient['Hour_session'] + ':00.000',
+      user: {
+        id: newPatient.user,
+      },
       treatments: treatments,
     };
-
-    console.log(createPatient);
 
     const config = {
       headers: { Authorization: `Bearer ${token}` },
     };
 
-    const response = await axios.post(url + '/clients', createPatient, config);
-    console.log(response);
+    try {
+      //POST the image on strapi
+      const formData = new FormData();
+
+      formData.append('files', selectedFile);
+
+      const uploadImage = await axios.post(url + '/upload', formData, config);
+      console.log(uploadImage.data);
+
+      const createUser = await axios.post(
+        url + '/clients',
+        createPatient,
+        config
+      );
+      console.log(createUser.data);
+
+      if (createUser.data.id) {
+        const patient = { ...createUser.data, Exam_images: uploadImage.data };
+
+        const addImage = await axios.put(
+          url + `/clients/${createUser.data.id}`,
+          patient,
+          config
+        );
+        console.log(addImage);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (
@@ -115,7 +152,7 @@ const FormRegisterPatient = () => {
         onChange={handleChange}
       />
       <label>Exams Images:</label>
-      <input type="file" name="Exam_images" onChange={handleChange} />
+      <input type="file" name="Exam_images" onChange={fileChangedHandler} />
       <div>
         <label>Start Date:</label>
         <input
@@ -133,6 +170,13 @@ const FormRegisterPatient = () => {
         type="time"
         name="Hour_session"
         value={newPatient['Hour_session']}
+        onChange={handleChange}
+      />
+      <label>Associate Fisio:</label>
+      <input
+        type="number"
+        name="user"
+        value={newPatient.user}
         onChange={handleChange}
       />
       <TreatmentForm handle={handleTreatments} treatment={treatments} />
