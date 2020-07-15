@@ -4,7 +4,7 @@ import { url } from '../../../../App';
 import { fetchWithToken } from '../../../../App';
 import cookie from 'js-cookie';
 
-const TreatmentForm = ({ handle, treatments }) => {
+const TreatmentForm = ({ handle }) => {
   let token = cookie.get('token');
 
   const { data, error } = useSWR([url + '/treatments', token], fetchWithToken);
@@ -30,13 +30,6 @@ const TreatmentForm = ({ handle, treatments }) => {
         name="treatments"
         id="treatments"
         multiple={true}
-        // onMouseLeave={() => {
-        //   const selected = [...document.querySelector('select').options]
-        //     .filter((option) => option.selected)
-        //     .map((option) => option.value);
-
-        //   return selected;
-        // }}
         onChange={treatmentsSelected}
       >
         {data.map((treatment) => (

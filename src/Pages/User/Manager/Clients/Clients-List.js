@@ -14,8 +14,16 @@ const ClientsList = () => {
 
   console.log(data);
 
+  const { data: user } = useSWR([url + '/clients/25', token], fetchWithToken);
+
+  console.log(user);
+
+  //const {data: image} = useSWR([url + `/upload/files/${user["Exam_images"].id}`])
+
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
+
+  if (!user) return <div>loading...</div>;
 
   return (
     <div>

@@ -4,10 +4,14 @@ import cookie from 'js-cookie';
 import moment from 'moment';
 import momentWeekDays from 'moment-business-days';
 import { url } from '../../../../App';
+import { useHistory } from 'react-router-dom';
 
 import TreatmentForm from '../RegisterPatient/Treatment-form';
+import SelectFisioForm from './Select-Fisio-form';
 
 const FormRegisterPatient = () => {
+  let history = useHistory();
+
   const [newPatient, setNewPatient] = useState({
     Name: '',
     Age: '',
@@ -21,14 +25,21 @@ const FormRegisterPatient = () => {
     user: '',
   });
 
+  //Allows to lifting up the state from Treatment-form component
   const [treatments, setTreatments] = useState([]);
 
   function handleTreatments(list) {
     setTreatments(list);
   }
 
-  let token = cookie.get('token');
+  //Allows to lifting up the state from SelectFisioForm component
+  const [fisio, setFisio] = useState('');
 
+  function handleFisio(user) {
+    setFisio(user);
+  }
+
+  //Allows to handle the changes on the multiple inputs and register on the newPatient object
   function handleChange(e) {
     const value = e.target.value;
 
@@ -38,6 +49,7 @@ const FormRegisterPatient = () => {
     });
   }
 
+  //Define the end date of the patient
   function defineEnd_date() {
     if (newPatient['Start_Date'] !== '') {
       let date = momentWeekDays(
@@ -53,6 +65,7 @@ const FormRegisterPatient = () => {
     }
   }
 
+  //Allows to handle the image selected from the exam images input
   const [selectedFile, setSelectedFile] = useState(null);
 
   function fileChangedHandler(e) {
@@ -60,17 +73,20 @@ const FormRegisterPatient = () => {
     console.log(e.target.files[0]);
   }
 
+  //On submit function
   async function submitNewPatient(e) {
+    debugger;
     e.preventDefault();
 
+    //Allow to format the hours for strapi and adds the treatments selected
     let createPatient = {
       ...newPatient,
       Hour_session: newPatient['Hour_session'] + ':00.000',
-      user: {
-        id: newPatient.user,
-      },
       treatments: treatments,
     };
+
+    //Headers for the request
+    let token = cookie.get('token');
 
     const config = {
       headers: { Authorization: `Bearer ${token}` },
@@ -83,14 +99,12 @@ const FormRegisterPatient = () => {
       formData.append('files', selectedFile);
 
       const uploadImage = await axios.post(url + '/upload', formData, config);
-      console.log(uploadImage.data);
 
       const createUser = await axios.post(
         url + '/clients',
         createPatient,
         config
       );
-      console.log(createUser.data);
 
       if (createUser.data.id) {
         const patient = { ...createUser.data, Exam_images: uploadImage.data };
@@ -100,7 +114,10 @@ const FormRegisterPatient = () => {
           patient,
           config
         );
-        console.log(addImage);
+
+        history.push('/dashboard');
+
+        console.log('Success!');
       }
     } catch (error) {
       console.log(error);
@@ -172,14 +189,8 @@ const FormRegisterPatient = () => {
         value={newPatient['Hour_session']}
         onChange={handleChange}
       />
-      <label>Associate Fisio:</label>
-      <input
-        type="number"
-        name="user"
-        value={newPatient.user}
-        onChange={handleChange}
-      />
-      <TreatmentForm handle={handleTreatments} treatment={treatments} />
+      <SelectFisioForm handle={handleFisio} />
+      <TreatmentForm handle={handleTreatments} />
       <button type="button" onClick={submitNewPatient}>
         Submit
       </button>
