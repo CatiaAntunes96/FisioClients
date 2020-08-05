@@ -109,7 +109,7 @@ const FormRegisterPatient = () => {
       if (createUser.data.id) {
         const patient = { ...createUser.data, Exam_images: uploadImage.data };
 
-        const addImage = await axios.put(
+        await axios.put(
           url + `/clients/${createUser.data.id}`,
           patient,
           config
