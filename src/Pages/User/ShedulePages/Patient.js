@@ -9,39 +9,38 @@ import { useParams } from 'react-router-dom';
 import cookie from 'js-cookie';
 import moment from 'moment';
 
+import { url } from '../../../App';
+import { fetchWithToken } from '../../../App';
+import useSWR from 'swr';
+
 const Patient = () => {
   let { id } = useParams();
 
   let token = cookie.get('token');
 
-  const [patient, setPatient] = useState({});
-  const [treatments, setTreatments] = useState([]);
   const [isDone, setIsDone] = useState(false);
   const [missedSession, setMissedSession] = useState(false);
 
   const [deceaseListUpdate, setDeceaseListUpdate] = useState([]);
 
-  function getPatient() {
-    const config = {
-      headers: { Authorization: `Bearer ${token}` },
-    };
+  const { data, error } = useSWR(
+    [url + `/clients/${id}`, token],
+    fetchWithToken
+  );
 
-    axios
-      .get(`http://localhost:1337/clients/${id}`, config)
-      .then((response) => {
-        console.log(response.data);
+  const { data: image } = useSWR(
+    () => [url + `/upload/files/${data.id}`, token],
+    fetchWithToken
+  );
 
-        setPatient(response.data);
+  console.log(image);
 
-        setTreatments(response.data.treatments);
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
 
-        setDeceaseListUpdate(response.data['Previous_diseases']);
-      });
-  }
+  if (!image) return <div>loading...</div>;
 
-  useEffect(() => {
-    getPatient();
-  }, [getPatient]);
+  console.log(image.url);
 
   function sessionIsDone() {
     setIsDone(!isDone);
@@ -58,20 +57,21 @@ const Patient = () => {
   return (
     <div>
       <Header />
-      <h4>Name: {patient.Name}</h4>
-      <p>Age: {patient.Age}</p>
-      <p>Start Date: {moment(patient['Start_Date']).format('DD-MM-YYYY')}</p>
-      <p>End date: {moment(patient['End_Date']).format('DD-MM-YYYY')}</p>
-      <p>Diagnosis: {patient.Diagnosis}</p>
+      <h4>Name: {data.Name}</h4>
+      <p>Age: {data.Age}</p>
+      <p>Start Date: {moment(data['Start_Date']).format('DD-MM-YYYY')}</p>
+      <p>End date: {moment(data['End_Date']).format('DD-MM-YYYY')}</p>
+      <p>Diagnosis: {data.Diagnosis}</p>
       <EditDeceases
         deceases={deceaseListUpdate}
         handleDeceaseChange={updateDeceaseList}
         id={id}
       />
-      <p>Exams: {patient.Exams}</p>
-      <p>Images: {patient['Exams_images']}</p>
-      <p>Tratamento:</p>
-      {treatments.map((treatment, i) => (
+      <p>Exams: {data.Exams}</p>
+      <p>Images:</p>
+      <img alt={image.name} src={url + image.url} />
+      <p>Treatament:</p>
+      {data.treatments.map((treatment, i) => (
         <li key={i}>{treatment.Treatment}</li>
       ))}
       {isDone ? (
@@ -86,13 +86,13 @@ const Patient = () => {
       {missedSession ? (
         <MissedSessionBtn
           style={'#c70e00'}
-          patientInfo={patient}
+          patientInfo={data}
           session={missingSession}
         />
       ) : (
         <MissedSessionBtn
           style={'#fb1100'}
-          patientInfo={patient}
+          patientInfo={data}
           session={missingSession}
         />
       )}

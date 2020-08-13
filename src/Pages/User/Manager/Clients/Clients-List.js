@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import useSWR from 'swr';
+
 import { url } from '../../../../App';
-import { fetchWithToken } from '../../../../App';
 import cookie from 'js-cookie';
 import { Link } from 'react-router-dom';
 
@@ -16,16 +15,6 @@ const ClientsList = () => {
   const [search, setSearch] = useState('');
   const [clientsList, setClientsList] = useState([]);
   const [filteredClients, setFilteredClients] = useState([]);
-
-  //get the clients list
-  //const { data, error } = useSWR([url + '/clients', token], fetchWithToken);
-
-  // if (error) return <div>failed to load</div>;
-  // if (!data) return <div>loading...</div>;
-
-  function handleChange(e) {
-    setSearch(e.target.value);
-  }
 
   //lift up the value from searchBar component
   function handleSearch(value) {
