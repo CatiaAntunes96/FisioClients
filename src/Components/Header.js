@@ -32,7 +32,7 @@ const Header = ({ loggedIn, logout, name }) => {
                 Register Client
               </Link>
               <Link to="/clientsList" className="links">
-                clients List
+                Clients List
               </Link>
               <Link to="/treatmentsList" className="links">
                 Treatments List
@@ -63,7 +63,7 @@ const Header = ({ loggedIn, logout, name }) => {
         ) : (
           <div>
             <div className="sidenav">
-              <Link to="/dashboard" className="logo-nav">
+              <Link to="/" className="logo-nav">
                 FisioClient
               </Link>
               <Link to="/shedule" className="links">

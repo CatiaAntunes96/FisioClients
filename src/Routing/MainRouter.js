@@ -16,10 +16,10 @@ import TreatmentsList from '../Pages/User/Manager/Clients/Treatmets-List';
 
 const MainRouter = () => (
   <Switch>
-    <Route exact path="/" component={Homepage} />
+    {/* <Route exact path="/" component={Homepage} /> */}
     <Route path="/login" component={Login} />
     <Route path="/register" component={Register} />
-    <PrivateRoute path="/dashboard" component={Dashboard} />
+    <PrivateRoute path="/" component={Dashboard} />
     <PrivateRoute path="/registerClient" component={RegisterClient} />
     <PrivateRoute path="/clientsList" component={ClientsList} />
     <PrivateRoute path="/treatmentsList" component={TreatmentsList} />
