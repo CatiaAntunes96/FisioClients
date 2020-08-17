@@ -21,7 +21,7 @@ const WeekNav = ({day, getDaySelected, getPatients, id}) => {
             headers: { Authorization: `Bearer ${token}`}
         }
 
-        axios.get(`http://localhost:1337/users/${id}`, config)
+        axios.get(`/users/${id}`, config)
             .then(response => {
                 let user = response.data;
                 
@@ -54,6 +54,5 @@ const mapStateToProps = state => {
         id: state.auth.user.id,
     };
   };
-
 
 export default connect(mapStateToProps, null) (WeekNav);
