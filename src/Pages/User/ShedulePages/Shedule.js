@@ -17,7 +17,7 @@ const Shedule = () => {
     //Display week days
    let days = [1, 2, 3, 4, 5]
 
-   let isWeekDay = moment().isoWeekday(); //confirms if the present day is a week day
+   let isWeekDay  = moment().isoWeekday(); //confirms if the present day is a week day
 
    let today = moment().format("YYYY-MM-DD"); //gives the present date day
 

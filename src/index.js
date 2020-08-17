@@ -7,19 +7,24 @@ import { Provider } from 'react-redux';
 import store from "./Store/Store";
 
 import cookie from "js-cookie";
-import axios from "axios"
+import axios from "axios";
+import { SWRConfig } from "swr";
+
+axios.defaults.baseURL = 'http://localhost:1337';
+
+let token = cookie.get("token");
 
 const render = () => {
   ReactDOM.render(
   <Provider store={store}>
-    <App />
+    
+      <App />
+   
   </Provider>,
   document.getElementById('root')
 )};
 
 
-  let token = cookie.get("token");
-  console.log(token)
   
   if (token) {
       const config = {
